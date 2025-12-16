@@ -1,10 +1,15 @@
 pipeline {
     agent any
     
-    parameters {
+ /*   parameters {
         string(name: 'ECR_REPO_NAME', defaultValue: 'amazon-prime-video', description: 'ECR repository name')
         string(name: 'AWS_ACCOUNT_ID', defaultValue: '667467573891', description: 'Enter AWS Account ID') // Added missing quote
+    } */
+	  parameters {
+        string(name: 'ECR_REPO_NAME', defaultValue: 'amazon-prime-video', description: 'ECR repository name')
+        string(name: 'AWS_ACCOUNT_ID', defaultValue: '667467573891', description: 'AWS Account ID')
     }
+
     
     tools {
         jdk 'jdk17'
