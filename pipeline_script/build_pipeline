@@ -195,7 +195,34 @@ pipeline {
 	        )
 	    }
 	}
-
+			    post {
+				    success {
+				        slackSend(
+				            webhookUrl: credentials('slack-webhook'),
+				            color: 'good',
+				            message: """
+				✅ *SUCCESS*
+				Job: ${JOB_NAME}
+				Build: #${BUILD_NUMBER}
+				<${BUILD_URL}|View Build>
+				"""
+				        )
+				    }
+				
+				    failure {
+				        slackSend(
+				            webhookUrl: credentials('slack-webhook'),
+				            color: 'danger',
+				            message: """
+				❌ *FAILED*
+				Job: ${JOB_NAME}
+				Build: #${BUILD_NUMBER}
+				<${BUILD_URL}|Check Logs>
+				"""
+				        )
+				    }
+				}
+			
 
     }
 }
