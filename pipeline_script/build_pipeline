@@ -2,17 +2,17 @@ pipeline {
     agent any
     
     parameters {
-        string(name: 'ECR_REPO_NAME', defaultValue: 'amazon-prime', description: 'Enter repository name')
-        string(name: 'AWS_ACCOUNT_ID', defaultValue: '123456789012', description: 'Enter AWS Account ID') // Added missing quote
+        string(name: 'ECR_REPO_NAME', defaultValue: 'amazon-prime-video', description: 'Enter repository name')
+        string(name: 'AWS_ACCOUNT_ID', defaultValue: '667467573891', description: 'Enter AWS Account ID') // Added missing quote
     }
     
     tools {
-        jdk 'JDK'
-        nodejs 'NodeJS'
+        jdk 'jdk17'
+        nodejs 'node16'
     }
     
     environment {
-        SCANNER_HOME = tool 'SonarQube Scanner'
+        SCANNER_HOME = tool 'sonar-scanner'
     }
     
     stages {
@@ -24,7 +24,7 @@ pipeline {
         
         stage('2. SonarQube Analysis') {
             steps {
-                withSonarQubeEnv ('sonar-server') {
+                withSonarQubeEnv ('SonarQube') {
                     sh """
                     $SCANNER_HOME/bin/sonar-scanner \
                     -Dsonar.projectName=amazon-prime \
