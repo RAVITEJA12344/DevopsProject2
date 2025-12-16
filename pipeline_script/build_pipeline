@@ -39,13 +39,19 @@ pipeline {
             }
         }
         
-        stage('3. Quality Gate') {
+      /*  stage('3. Quality Gate') {
             steps {
                 waitForQualityGate abortPipeline: false, 
                 credentialsId: 'sonar-token'
             }
-        }
-        
+        } */
+	      stage('3. Quality Gate') {
+		    steps {
+		        timeout(time: 1, unit: 'MINUTES') {
+		            waitForQualityGate abortPipeline: true
+		        }
+		    }
+		}
         stage('4. Install npm') {
             steps {
                 sh "npm install"
@@ -58,12 +64,16 @@ pipeline {
             }
         }
         
-        stage('6. Build Docker Image') {
+     /*   stage('6. Build Docker Image') {
             steps {
                 sh "docker build -t ${params.ECR_REPO_NAME} ."
             }
-        }
-        
+        } */
+	      stage('6. Build Docker Image') {
+		    steps {
+		        sh "docker build -t ${ECR_REPO_NAME}:latest ."
+		    }
+		}
     /*    stage('7. Create ECR repo') {
             steps {
                 withCredentials([string(credentialsId: 'access-key', variable: 'AWS_ACCESS_KEY'), 
