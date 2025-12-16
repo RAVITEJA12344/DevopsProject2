@@ -164,6 +164,38 @@ pipeline {
 		        '''
 		    }
 		}
+	  post {
+	    success {
+	        emailext(
+	            to: 'ravitejaravirala2@gmail.com',
+	            subject: "✅ SUCCESS: ${JOB_NAME} #${BUILD_NUMBER}",
+	            mimeType: 'text/html',
+	            body: """
+	                <h2>Build Successful 🎉</h2>
+	                <p><b>Job:</b> ${JOB_NAME}</p>
+	                <p><b>Build:</b> ${BUILD_NUMBER}</p>
+	                <p><b>Status:</b> SUCCESS</p>
+	                <p><a href="${BUILD_URL}">View Build</a></p>
+	            """
+	        )
+	    }
+	
+	    failure {
+	        emailext(
+	            to: 'ravitejaravirala2@gmail.com',
+	            subject: "❌ FAILED: ${JOB_NAME} #${BUILD_NUMBER}",
+	            mimeType: 'text/html',
+	            body: """
+	                <h2>Build Failed ❌</h2>
+	                <p><b>Job:</b> ${JOB_NAME}</p>
+	                <p><b>Build:</b> ${BUILD_NUMBER}</p>
+	                <p><b>Status:</b> FAILURE</p>
+	                <p><a href="${BUILD_URL}">Check Logs</a></p>
+	            """
+	        )
+	    }
+	}
+
 
     }
 }
