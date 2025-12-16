@@ -191,7 +191,7 @@ pipeline {
 		        )
 		
 		        slackSend(
-		            webhookUrl: credentials('slack-webhook'),
+		            channel: '#jenkins-integration',
 		            color: 'good',
 		            message: """
 		✅ *SUCCESS*
@@ -216,7 +216,7 @@ pipeline {
 		        )
 		
 		        slackSend(
-		            webhookUrl: credentials('slack-webhook'),
+		            channel: '#jenkins-integration' ,
 		            color: 'danger',
 		            message: """
 		❌ *FAILED*
